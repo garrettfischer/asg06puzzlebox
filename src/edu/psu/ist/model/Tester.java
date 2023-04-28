@@ -5,6 +5,72 @@ import java.util.Random;
 
 public class Tester {
         public static void main(String[] args) {
+
+            // tests adding items
+            PuzzleBox<Integer> box = new PuzzleBox<>();
+            box.addItemsTo(List.of(4, 3, 0, 1));
+            System.out.println(box); //4 3 0 1
+
+            //tests sort
+            box.sort();
+            System.out.println(box); //0 1 3 4
+
+            //tests numOfItems
+            System.out.println(box.numOfItems()); // 4
+
+
+            //tests clear
+            box.clear();
+            System.out.println(box);
+
+            //tests numOfItems and clear
+            System.out.println(box.numOfItems()); // 0
+
+            // tests in double order
+            box.clear();
+            box.addItemsTo(List.of(0, 0, 1, 1));
+            System.out.println(box.inDoubleOrder()); // true
+
+            box.clear();
+            box.addItemsTo(List.of(0, 1, 2, 2));
+            System.out.println(box.inDoubleOrder()); // false
+
+            PuzzleBox<String> strBox = new PuzzleBox<>();
+            strBox.addItemsTo(List.of("a", "a"));
+            System.out.println(strBox.inDoubleOrder()); // true
+
+            strBox.clear();
+            strBox.addItemsTo(List.of("a", "b"));
+            System.out.println(strBox.inDoubleOrder()); // false
+
+            strBox.clear();
+            strBox.addItemsTo(List.of("a"));
+            System.out.println(strBox.inDoubleOrder()); // false
+
+            box.clear();
+            box.addItemsTo(List.of(0, 0, 0));
+            System.out.println(box.inDoubleOrder()); // false
+
+            box.clear();
+            box.addItemsTo(List.of(1, 1, 1, 1));
+            System.out.println(box.inDoubleOrder()); // true
+
+            box.clear();
+            box.addItemsTo(List.of(3, 3, 0, 0));
+            System.out.println(box.inDoubleOrder()); // false
+
+            box.clear();
+            box.addItemsTo(List.of(0, 0, 3, 3));
+            System.out.println(box.inDoubleOrder()); // true
+
+            box.clear();
+            box.addItemsTo(List.of(1, 2, 1, 2));
+            System.out.println(box.inDoubleOrder()); // false
+
+
+
+
+
             PuzzleBox<String> faceBox = new PuzzleBox<>();
             faceBox.addItemsTo(List.of("cat", "dog", "fish"));
 
@@ -17,20 +83,8 @@ public class Tester {
                 }
             };
 
-            // clears, then fills the puzzlebox with 8 diff faces
+// clears, then fills the puzzlebox with 8 diff faces
             faceBox.randomlyPopulate(faceStrGenerator);
-            System.out.println(faceBox); // will print a string like ":-) :-0 :-) :-0 :-0 :-) :-0 :-)"
-
-            PuzzleBox<Integer> intBox = new PuzzleBox<>();
-            intBox.addItemsTo(List.of(1, 2, 3, 4, 5));
-
-            IProducer<Integer> intGenerator = () -> {
-                Random rand = new Random();
-                return rand.nextInt(10); // generates a random number between 0..9 (inclusive)
-            };
-
-            // clears, then fills the puzzlebox with 5 random numbers
-            intBox.randomlyPopulate(intGenerator);
-            System.out.println(intBox.inDoubleOrder());
+            System.out.println(faceBox); // :-0 :-0 :-) :-0 :-0 :-) :-0 :-0
         }
     }
