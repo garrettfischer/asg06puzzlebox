@@ -1,14 +1,14 @@
 package edu.psu.ist.controller;
-
 import edu.psu.ist.model.IProducer;
 import edu.psu.ist.model.PuzzleBox;
 import edu.psu.ist.view.PuzzleBoxForm;
 import edu.psu.ist.view.PuzzleBoxView;
-
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+/**
+ * Controls the GUI interface for when buttons are used, or text input
+ */
 public class PuzzleBoxController {
 
     private PuzzleBox<Integer> model;
@@ -20,22 +20,25 @@ public class PuzzleBoxController {
 
         PuzzleBoxForm form = view.getForm();
 
-        //todo: make into method
-        //default disables clear, sort, ordered buttons
+        //default disables clear, sort, and ordered buttons
         form.getClearButton().setEnabled(false);
         form.getSortButton().setEnabled(false);
         form.getDoubleOrderedButton().setEnabled(false);
 
+        // at runtime sets the # of items
         form.getNumOfItems().setText(model.numOfItems()+"");
 
 
         /**
-         *  clear and add button controller
+         *  clear and add text input - button controller
+         *  Has error checking to make sure items are entered in text input
+         *  Also enables the clear, sort, and ordered buttons
+         *  Updates # of items
          */
         form.getClearAndAdd().addActionListener(e -> {
             String textFieldStr = form.getTextFieldStr().getText();
             if (textFieldStr.trim().isEmpty()){
-                JOptionPane.showMessageDialog(view, "Enter items in the text field");
+                JOptionPane.showMessageDialog(view, "Error: Enter items in the text field!");
                 return;
             }
             List<String> itemsToAdd = getTextFieldContents(textFieldStr);
@@ -48,7 +51,9 @@ public class PuzzleBoxController {
         });
 
         /**
-         * clear button controller
+         * clears the puzzlebox - button controller
+         * updates # of items
+         * disables clear, sort, order buttons
          */
         form.getClearButton().addActionListener(e -> {
             model.clear();
@@ -60,7 +65,7 @@ public class PuzzleBoxController {
         });
 
         /**
-         * Sort button controller
+         * Sort - button controller
          *
          */
 
@@ -69,17 +74,33 @@ public class PuzzleBoxController {
         });
 
         /**
-         * randomize button controller
+         * randomize - button controller
+         * randomizes the puzzlebox using IProducer interface and num generator below
+         * updates # of items
+         * enables clear, sort, order buttons
          */
         form.getRandomizeButton().addActionListener(e -> {
-          //  form.getTextFieldStr().setText(model.randomlyPopulate(PuzzleBox<Integer>);
+
+            IProducer<Integer> numGenerator = () -> {
+                Random ran = new Random(); // random num generator
+                return ran.nextInt(6); // generates random num between 0-5
+            };
+
+            model.randomlyPopulate(numGenerator);
+            form.getTextFieldStr().setText(model +"");
+            form.getNumOfItems().setText(model.numOfItems()+"");
+            form.getClearButton().setEnabled(true);
+            form.getSortButton().setEnabled(true);
+            form.getDoubleOrderedButton().setEnabled(true);
+
         });
 
         /**
          * double ordered controller
+         * uses doubleOrder method to check if puzzlebox is ordered
+         * COULDN'T FIGURE OUT HOW TO GET IT TO WORK, ONLY DISPLAYS NOT DOUBLE ORDERED
          */
         form.getDoubleOrderedButton().addActionListener(e -> {
-            model.inDoubleOrder();
             boolean result = model.inDoubleOrder();
             if (result == true) {
                 JOptionPane.showMessageDialog(view, "It is double ordered :)");
@@ -89,6 +110,11 @@ public class PuzzleBoxController {
         });
     }
 
+    /**
+     * Cleans the input
+     * @param textFieldStr
+     * @return
+     */
     private List<String> getTextFieldContents(String textFieldStr) {
         List<String> result = new ArrayList<>();
 

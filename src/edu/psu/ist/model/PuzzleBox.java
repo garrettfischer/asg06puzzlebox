@@ -25,7 +25,7 @@ public class PuzzleBox<T extends Comparable<T>> {
     }
 
     /**
-     * uses helper method to recursively return count of items in this.items
+     * uses helper method to recursively return count number of items in this.items
      * @return countItems in this.items
      */
     public int numOfItems() {
@@ -43,10 +43,9 @@ public class PuzzleBox<T extends Comparable<T>> {
 
 
     /**
-     * uses bubble sort algo I read about online
+     * uses bubble sort algo, I read about online
      * repeatedly swaps adjacent elements and is repeated until the list is sorted
      * also mutates this.items list
-     * <p>
      * runtime of O(n^2) - honestly I only know this because I know the algo has that runtime
      */
     public List<T> sort() {
@@ -67,22 +66,25 @@ public class PuzzleBox<T extends Comparable<T>> {
     }
 
 
+    /**
+     * Uses helper method to recursively check if elements are in order
+     * @return true (in order) or calls the helper method otherwise
+     */
     public boolean inDoubleOrder() {
         if (this.items.size() < 2) {
-            //empty one element list is sorted
+            //empty/ one element list is sorted already
             return true;
         } else {
             return inDoubleOrderHelper(this.items);
         }
     }
 
-
     // todo: not working correctly
     /**
      * double order helper.
      * recursively checks if the elements are in order
      * @param items
-     * @return bool on if elements in order
+     * @return bool on if elements are in order
      */
     private boolean inDoubleOrderHelper(List<T> items) {
         if (items.size() < 2) {
@@ -107,6 +109,10 @@ public class PuzzleBox<T extends Comparable<T>> {
     }
 
 
+    /**
+     * Uses the Iproducer interface to randomly populate items
+     * @param itemProducer
+     */
     public void randomlyPopulate(IProducer<T> itemProducer) {
         clear();
         for (int i = 0; i < 8; i++) {

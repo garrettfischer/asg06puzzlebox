@@ -71,6 +71,7 @@ public class Tester {
 
 
 
+            // tests randomly populate and IProducer interface
             PuzzleBox<String> faceBox = new PuzzleBox<>();
             faceBox.addItemsTo(List.of("cat", "dog", "fish"));
 

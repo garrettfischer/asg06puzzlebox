@@ -1,9 +1,9 @@
+/**
+ * The main method that runs the Puzzle Box program and GUI
+ */
+
 package edu.psu.ist;
-
-import java.util.*;
-
 import edu.psu.ist.controller.PuzzleBoxController;
-import edu.psu.ist.model.IProducer;
 import edu.psu.ist.model.PuzzleBox;
 import edu.psu.ist.view.PuzzleBoxView;
 

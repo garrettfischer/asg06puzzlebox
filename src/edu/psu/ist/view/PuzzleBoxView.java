@@ -1,8 +1,10 @@
 package edu.psu.ist.view;
-
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Boiler-plate for the GUI
+ */
 public class PuzzleBoxView extends JFrame {
     private PuzzleBoxForm form;
 
