@@ -46,10 +46,10 @@ public class PuzzleBox<T extends Comparable<T>> {
      * uses bubble sort algo I read about online
      * repeatedly swaps adjacent elements and is repeated until the list is sorted
      * also mutates this.items list
-     *
+     * <p>
      * runtime of O(n^2) - honestly I only know this because I know the algo has that runtime
      */
-    public void sort() {
+    public List<T> sort() {
         boolean sorted = false;
         while (!sorted) {
             sorted = true;
@@ -63,6 +63,7 @@ public class PuzzleBox<T extends Comparable<T>> {
                 }
             }
         }
+        return items;
     }
 
 
@@ -105,7 +106,7 @@ public class PuzzleBox<T extends Comparable<T>> {
         }
     }
 
-    
+
     public void randomlyPopulate(IProducer<T> itemProducer) {
         clear();
         for (int i = 0; i < 8; i++) {

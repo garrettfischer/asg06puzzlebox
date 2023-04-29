@@ -14,5 +14,7 @@ public class App{
         PuzzleBoxController controller = new PuzzleBoxController(model, view);
 
         view.setVisible(true);
+
+
     }
 }

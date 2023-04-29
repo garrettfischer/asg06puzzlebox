@@ -1,5 +1,6 @@
 package edu.psu.ist.controller;
 
+import edu.psu.ist.model.IProducer;
 import edu.psu.ist.model.PuzzleBox;
 import edu.psu.ist.view.PuzzleBoxForm;
 import edu.psu.ist.view.PuzzleBoxView;
@@ -25,6 +26,8 @@ public class PuzzleBoxController {
         form.getSortButton().setEnabled(false);
         form.getDoubleOrderedButton().setEnabled(false);
 
+        form.getNumOfItems().setText(model.numOfItems()+"");
+
 
         /**
          *  clear and add button controller
@@ -42,6 +45,47 @@ public class PuzzleBoxController {
             form.getClearButton().setEnabled(true);
             form.getSortButton().setEnabled(true);
             form.getDoubleOrderedButton().setEnabled(true);
+        });
+
+        /**
+         * clear button controller
+         */
+        form.getClearButton().addActionListener(e -> {
+            model.clear();
+            form.getTextFieldStr().setText("");
+            form.getNumOfItems().setText(model.numOfItems()+"");
+            form.getClearButton().setEnabled(false);
+            form.getSortButton().setEnabled(false);
+            form.getDoubleOrderedButton().setEnabled(false);
+        });
+
+        /**
+         * Sort button controller
+         *
+         */
+
+        form.getSortButton().addActionListener(e ->{
+            form.getTextFieldStr().setText(model.sort() + "");
+        });
+
+        /**
+         * randomize button controller
+         */
+        form.getRandomizeButton().addActionListener(e -> {
+          //  form.getTextFieldStr().setText(model.randomlyPopulate(PuzzleBox<Integer>);
+        });
+
+        /**
+         * double ordered controller
+         */
+        form.getDoubleOrderedButton().addActionListener(e -> {
+            model.inDoubleOrder();
+            boolean result = model.inDoubleOrder();
+            if (result == true) {
+                JOptionPane.showMessageDialog(view, "It is double ordered :)");
+            } else {
+                JOptionPane.showMessageDialog(view, "It is NOT double ordered :(");
+            }
         });
     }
 
